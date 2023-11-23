@@ -1,7 +1,7 @@
 @Service
 public class tarefaServicelmpl implements tarefaService {
 
-    private static Map<Integer, tarefa> tarefas = new HashMap<Integer, tarefa>();
+    private static Map<Integer, tarefa> tarefas = new HashMap<>();
     private int nextId = 1;
 
     // Populate collection with some simple Items, to get the ball rolling.
@@ -24,8 +24,8 @@ public class tarefaServicelmpl implements tarefaService {
 
     @Override
     public void insert(tarefa tarefis) {
-        item.setId(nextId++);
-        items.put(tarefis.getId(), tarefis);
+        tarefis.setId(nextId++);
+        tarefas.put(tarefis.getId(), tarefis);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class tarefaServicelmpl implements tarefaService {
     @Override
     public void delete(int id) {
         tarefa tarefis = tarefas.get(id);
-        if (tarefas != null) {
+        if (tarefis != null) {
             tarefas.remove(id);
         }
     }

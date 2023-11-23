@@ -1,40 +1,41 @@
-
+@RestController
+@RequestMapping("/api/tarefas")
 public class tarefaController {
 
     @Autowired
     private tarefaService service;
 
-    // Get all items.
-    @GetMapping(value="/tarefis", produces={"application/json","application/xml"})
-    public Collection<tarefaController> getItarefas() {
+    // Get all tarefas.
+    @GetMapping(produces = {"application/json", "application/xml"})
+    public Collection<tarefa> getItarefas() {
         return service.gettarefas();
     }
 
-    // Get a specific item.
-    @GetMapping(value="/tarefis/{id}", produces={"application/json","application/xml"})
-    public tarefaController getItem(@PathVariable int id) {
-        return service.getarefas(id);
+    // Get a specific tarefa.
+    @GetMapping(value = "/{id}", produces = {"application/json", "application/xml"})
+    public tarefa getItem(@PathVariable int id) {
+        return service.gettarefis(id);
     }
 
-    // Insert a new item.
-    @PostMapping(value="/item",
-            consumes={"application/json","application/xml"},
-            produces={"application/json","application/xml"})
+    // Insert a new tarefa.
+    @PostMapping(consumes = {"application/json", "application/xml"},
+            produces = {"application/json", "application/xml"})
     @ResponseStatus(HttpStatus.CREATED)
-    public tarefaController addtarefis(@RequestBody tarefaController item) {
+    public tarefa addtarefis(@RequestBody tarefa tarefis) {
         service.insert(tarefis);
-        return item;
+        return tarefis;
     }
 
-    // Update an existing item.
-    @PutMapping(value="/tarefis/{id}", consumes={"application/json","application/xml"})
-    public void modifyItem(@PathVariable int id, @RequestBody tarefaController tarefis) {
+    // Update an existing tarefa.
+    @PutMapping(value = "/{id}", consumes = {"application/json", "application/xml"})
+    public void modifyItem(@PathVariable int id, @RequestBody tarefa tarefis) {
         System.out.println("Modifying item to " + tarefis);
+        tarefis.setId(id);
         service.update(tarefis);
     }
 
-    // Delete an existing item.
-    @DeleteMapping("/tarefis/{id}")
+    // Delete an existing tarefa.
+    @DeleteMapping("/{id}")
     public void deletetarefis(@PathVariable int id) {
         service.delete(id);
     }
